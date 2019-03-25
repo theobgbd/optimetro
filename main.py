@@ -1,6 +1,7 @@
 ###########################################
 # OptiMetro : a simple MiniMetro optimiser
 # Théo Beigbeder - 2019
+# Pierre Boisselier - 2019
 ##########################################
 
 import cv2
