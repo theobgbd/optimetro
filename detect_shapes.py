@@ -19,19 +19,27 @@ args = vars(ap.parse_args())
 # load the image and resize it to a smaller factor so that
 # the shapes can be approximated better
 image = cv2.imread(args["image"])
-resized = imutils.resize(image, width=1000)
-ratio = image.shape[0] / float(resized.shape[0])
+image = imutils.resize(image, width=800)
+#ratio = image.shape[0] / float(resized.shape[0])
 
 # convert the resized image to grayscale, blur it slightly,
 # and threshold it
-white 		= (255,255,255)
-light_gray 	= (0,0,0)
-light_water	= (119,176,203)
-dark_water  = (67 ,193,133)
-rgb 			= cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
-mask_stations 	= cv2.inRange(rgb, white, light_gray)
-mask_water	 	= cv2.inRange(rgb, light_water, dark_water)
+light_white 		= (0,0,100)
+dark_white 	        = (50,50,255)
+#water RBG(119, 176, 203)
+light_water	= (90 , 90, 100)
+dark_water  = (130, 150, 250)
 
+hsv 			= cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+mask_stations 	= cv2.inRange(hsv, light_white, dark_white)
+mask_water	 	= cv2.inRange(hsv, light_water, dark_water)
+image[mask_stations != 0] = [0,0,255]
+image[mask_water    != 0] = [0,255,0]
+cv2.imshow("frame", image)
+cv2.waitKey(3014656)
+
+#quit()
+ 
 stations	= cv2.bitwise_and(resized, resized, mask=mask_stations)
 water		= cv2.bitwise_and(resized, resized, mask=mask_water)
 plt.subplot(1, 4, 1)
