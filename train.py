@@ -11,13 +11,13 @@ import interface
 
 
 
- class Train():
+class Train():
      
-     def __init__(self, line):
-         if line not in L_lines_uuid:
-             raise ValueError("Line must be an existing line UUID!")
+    def __init__(self, line):
+        if line not in L_lines_uuid:
+            raise ValueError("Line must be an existing line UUID!")
     
-         self.line = line
-         self.id = uuid.uuid4().hex
+        self.line = line
+        self.id = uuid.uuid4().hex
 
-         T_trains_uuid[id] = self
+        T_trains_uuid[id] = self

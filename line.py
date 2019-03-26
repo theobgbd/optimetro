@@ -31,9 +31,9 @@ class Line():
         self.stations.remove(station)
         self.nbstations+=-1
 
-   def hasShape(self, shape):
-       if not isinstance(shape, StationShape):
-           raise TypeError("Please provide a valid station shape!") 
+    def hasShape(self, shape):
+        if not isinstance(shape, StationShape):
+            raise TypeError("Please provide a valid station shape!") 
         for i in self.types:
             if shape == i:
                 return True

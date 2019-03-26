@@ -37,16 +37,16 @@ S_station_shapes = {
 }
 '''
 class StationShape(IntEnum):
-    CIRCLE = 1
-    TRIANGLE = 2
-    SQUARE = 3
-    CROSS = 4
-    DIAMOND = 5
-    PIZZA = 6
-    STAR = 7
-    PENTAGON = 8
-    RHOMBUS = 9
-    LEAF = 10
+    CIRCLE      = 1
+    TRIANGLE    = 2
+    SQUARE      = 3
+    CROSS       = 4
+    DIAMOND     = 5
+    PIZZA       = 6
+    STAR        = 7
+    PENTAGON    = 8
+    RHOMBUS     = 9
+    LEAF        = 10
 
 
 class Station:

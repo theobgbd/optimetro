@@ -7,9 +7,18 @@
 #############################
 
 
+# Imports 
+
+import station
+import line
+import passenger
+import train
+
+
 ##########
 # Station
 ##########
+
 # Dictionnary associating each uuid to its station object
 S_stations_uuid = {} 
 # Dictionnary associating each station coordinates to its uuid (coord:uuid), useful for OpenCV 
