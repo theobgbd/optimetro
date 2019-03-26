@@ -14,7 +14,7 @@ Et les critères de performance, c'est la fluidité du trafic
 import random
 import uuid
 import passenger
-#import line
+import interface
 from enum import IntEnum
 
 
@@ -48,25 +48,9 @@ class StationShape(IntEnum):
     RHOMBUS = 9
     LEAF = 10
 
-# Dictionnary associating each uuid to its station object
-S_stations_uuid = {} 
-# Dictionnary associating each station coordinates to its uuid (coord:uuid), useful for OpenCV 
-S_stations_coord = {}
-# List of bias for each type of station
-S_station_bias = {
-    1:1,
-    2:10,
-    3:30,
-    4:100,
-    5:100,
-    6:100,
-    7:100,
-    8:100,
-    9:100,
-    10:100
-}
+
 class Station:
-    global S_stations_uuid 
+
     def __init__(self, shape, bias, coord):
         if not isinstance(shape, StationShape):
             raise TypeError("Shape must be a valid one from StationShape!")

@@ -7,17 +7,8 @@
 from uuid import uuid4
 from enum import IntEnum
 import station 
+import interface
 
-
-
-# List of all passenger uuid with their object 
-P_passengers_uuid = {}
-
-# List of all passengers currently alive
-P_passengers_alive = []
-
-# List of passengers that have done their travel, keeping them for analytics 
-P_passengers_dead = [] 
 
 
 class PassengerFlag(IntEnum):

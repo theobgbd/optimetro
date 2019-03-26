@@ -7,9 +7,9 @@
 import line
 import station
 import passenger
+import interface
 
-# List of all trains with their UUID
-T_trains_uuid = {}
+
 
  class Train():
      

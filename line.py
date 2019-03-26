@@ -7,9 +7,8 @@
 from uuid import uuid4
 import station
 import passenger
+import interface
 
-# List of all lines with their object
-L_lines_uuid = {}
 
 
 class Line():
