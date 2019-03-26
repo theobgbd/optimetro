@@ -14,7 +14,7 @@ Et les critères de performance, c'est la fluidité du trafic
 import random
 import uuid
 import passenger
-import line
+#import line
 from enum import IntEnum
 
 
@@ -22,6 +22,7 @@ from enum import IntEnum
 
 # List of stations with their ID 
 # DEPRECATED
+'''
 S_station_shapes = {
     1:'Circle',
     2:'Triangle',
@@ -34,7 +35,7 @@ S_station_shapes = {
     9:'Rhombus',
     10:'Leaf'
 }
-
+'''
 class StationShape(IntEnum):
     CIRCLE = 1
     TRIANGLE = 2
@@ -64,16 +65,13 @@ S_station_bias = {
     9:100,
     10:100
 }
-
 class Station:
-    
+    global S_stations_uuid 
     def __init__(self, shape, bias, coord):
-       # if shape not in S_station_shapes:
-       #     raise ValueError(str(shape)+" is not a valid shape!") 
         if not isinstance(shape, StationShape):
-            raise ValueError("Shape must be a valid one from StationShape!")
+            raise TypeError("Shape must be a valid one from StationShape!")
         if not isinstance(coord, tuple):
-            raise ValueError("Coordinates must be a tuple!")
+            raise TypeError("Coordinates must be a tuple!")
 
         self.shape = shape 
         self.id = uuid.uuid4().hex 
@@ -91,6 +89,11 @@ class Station:
             raise ValueError("This line doesn't exist!")
         self.lines.append(line)
 
+    # Generate a passenger and add it to the queue
+    def generatePassenger(self):
+        # generate random number 1-10 with propability relative to bias
+        return
+
     # Must be called when adding a passenger to the queue
     def addPassenger(self, passenger):
         if passenger not in P_passengers_alive:
@@ -105,10 +108,16 @@ class Station:
 
     
     
+''''
+Station(StationShape.CIRCLE,1,(1,1))
+Station(StationShape.TRIANGLE,2,(0,0))
+print("Len:"+str(len(S_stations_uuid)))
+for i in S_stations_uuid:
+    print("UUID:"+i)
+    print("ID:"+S_stations_uuid[i].id)
+    print("Coord:"+str(S_stations_uuid[i].coord))
 
-s = Station(StationShape.CIRCLE,1,(1,1))
 
-'''
 for i in range(1,11):
     Station(i,S_station_bias[i],(random.randint(0,512),random.randint(0,512)))
 
