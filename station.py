@@ -13,7 +13,6 @@ Et les critères de performance, c'est la fluidité du trafic
 
 import random
 import uuid
-import passenger
 import interface
 from enum import IntEnum
 
@@ -73,6 +72,10 @@ class Station:
             raise ValueError("This line doesn't exist!")
         self.lines.append(line)
 
+    def removeLine(self, line):
+        # Already raise a ValueError if line not in lines
+        self.lines.remove(line)
+    
     # Generate a passenger and add it to the queue
     def generatePassenger(self):
         # generate random number 1-10 with propability relative to bias
@@ -86,8 +89,7 @@ class Station:
 
     # Must be called when a passenger is leaving the station
     def removePassenger(self, passenger):
-        if passenger not in P_passengers_alive:
-            raise ValueError("This passenger doesn't exist, or is dead!")
+        # Already raise a ValueError if passenger is not in the queue
         self.queue.remove(passenger)
 
     

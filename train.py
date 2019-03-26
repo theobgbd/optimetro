@@ -4,9 +4,6 @@
  # Theo Beigbeder - 2019
  ############################
 
-import line
-import station
-import passenger
 import interface
 
 

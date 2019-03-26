@@ -6,7 +6,6 @@
 
 from uuid import uuid4
 from enum import IntEnum
-import station 
 import interface
 
 
