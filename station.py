@@ -70,8 +70,12 @@ class Station():
 
     # Must be called by Line when adding a station to it
     def addLine(self, line):
+        '''
         if line not in interface.L_lines_uuid:
             raise ValueError("This line doesn't exist!")
+        '''
+        if not isinstance(line, interface.Line):
+            raise TypeError("Provide a valid line!")
         self.lines.append(line)
 
     def removeLine(self, line):
@@ -85,8 +89,11 @@ class Station():
 
     # Must be called when adding a passenger to the queue
     def addPassenger(self, passenger):
-        if passenger not in interface.P_passengers_alive:
-             raise ValueError("This passenger doesn't exist, or is dead!")
+        if not isinstance(passenger, interface.Passenger):
+            raise TypeError("Please provide a Passenger!")
+        if passenger.status == interface.PassengerFlag.DEAD:
+            raise ValueError("This passenger is dead!") 
+        passenger.status = interface.PassengerFlag.WAITING
         self.queue.append(passenger)
 
     # Must be called when a passenger is leaving the station

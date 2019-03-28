@@ -5,6 +5,9 @@
 # Pierre Boisselier - 2019
 # Theo Beigbeder - 2019
 #############################
+# Comments: 
+# Yes, it's 1977 again, we old and cool
+# - P
 
 
 # Imports 
@@ -13,6 +16,8 @@ from station import *
 from line import *
 from passenger import *
 from train import *
+
+
 
 
 ##########
@@ -66,3 +71,30 @@ L_lines_uuid = {}
 
 # List of all trains with their UUID
 T_trains_uuid = {}
+
+
+###################################
+# Some useful functions for debug
+###################################
+
+# Show every obj UUID in the program
+# Use to be determined, I was bored. - P
+def showAllUUID():
+    print("-= List of objects =-")
+    for i in S_stations_uuid:
+        print("Station: "+i)
+    for i in L_lines_uuid:
+        print("Line: "+i)
+    for i in T_trains_uuid:
+        print("Train: "+i)
+    for i in P_passengers_uuid:
+        print("Passenger: "+i)
+
+
+# Show how many objects there are
+def countObj():
+    print("-= Object count =-")
+    print("Stations: "+str(S_stations_uuid.__len__()))
+    print("Lines: "+str(L_lines_uuid.__len__()))
+    print("Trains: "+str(T_trains_uuid.__len__()))
+    print("Passengers: "+str(P_passengers_uuid.__len__()))

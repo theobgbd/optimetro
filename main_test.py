@@ -10,12 +10,14 @@ from interface import *
 
 s = Station(StationShape.CIRCLE,10,(0,0))
 l = Line()
-t = Train(l.id)
-p = Passenger(s.id,StationShape.SQUARE)
-s.addLine(Line().id)
-s.addLine(Line().id)
-s.addPassenger(p.id)
+l.addStation(s)
+t = Train(l)
+p = Passenger(s,StationShape.SQUARE)
+s.addLine(Line())
+s.addLine(Line())
+s.addPassenger(p)
+
 print(l.hasShape(StationShape.CIRCLE))
 
-for i in s.lines:
-    print(i)
+showAllUUID()
+countObj()

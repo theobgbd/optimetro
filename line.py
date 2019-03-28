@@ -20,9 +20,10 @@ class Line():
         interface.L_lines_uuid[self.id] = self
 
     def addStation(self, station):
-        if station not in interface.S_stations_uuid:
-            raise ValueError("Station "+str(station)+" doesn't exist!")
+        if not isinstance(station, interface.Station):
+            raise TypeError("Please provide a station!")
         self.stations.append(station)
+        self.types.append(station.shape)
         self.nbstations+=1
     
     def delStation(self, station):

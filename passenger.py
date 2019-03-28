@@ -27,7 +27,7 @@ class Passenger():
     def __init__(self, source, dest):
         if not isinstance(dest, interface.StationShape): 
             raise TypeError("Destination must be a valid shape!")
-        if source not in interface.S_stations_uuid:
+        if not isinstance(source, interface.Station):
             raise ValueError("Source must be an existing station!")
 
         self.id = uuid4().hex
