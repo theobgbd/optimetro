@@ -25,19 +25,19 @@ class PassengerTravelFlag(IntEnum):
 class Passenger():
 
     def __init__(self, source, dest):
-        if not isinstance(dest, StationShape): 
+        if not isinstance(dest, interface.StationShape): 
             raise TypeError("Destination must be a valid shape!")
-        if source not in S_stations_uuid:
+        if source not in interface.S_stations_uuid:
             raise ValueError("Source must be an existing station!")
 
-        self.id = uuid.uuid4().hex
+        self.id = uuid4().hex
         self.source = source 
         self.dest = dest
         self.status = PassengerFlag.WAITING
         self.travel = PassengerTravelFlag.UNDEFINED # Todo.
 
-        P_passengers_uuid[self.id] = self
-        P_passengers_alive.append(self.id)
+        interface.P_passengers_uuid[self.id] = self
+        interface.P_passengers_alive.append(self.id)
 
     # Not a stupid set, figure itself whether the station is a connection or a direct
     def setTravelFlag(self):

@@ -9,10 +9,10 @@
 
 # Imports 
 
-import station
-import line
-import passenger
-import train
+from station import *
+from line import *
+from passenger import *
+from train import *
 
 
 ##########
@@ -36,6 +36,9 @@ S_station_bias = {
     9:100,
     10:100
 }
+
+# Max capacity of passengers, including queue ?
+S_stations_capacity = 10
 
 ##########
 # Passengers

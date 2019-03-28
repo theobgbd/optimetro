@@ -13,8 +13,8 @@ Et les critères de performance, c'est la fluidité du trafic
 
 import random
 import uuid
-import interface
 from enum import IntEnum
+import interface
 
 
 
@@ -48,7 +48,7 @@ class StationShape(IntEnum):
     LEAF        = 10
 
 
-class Station:
+class Station():
 
     def __init__(self, shape, bias, coord):
         if not isinstance(shape, StationShape):
@@ -62,13 +62,15 @@ class Station:
         self.coord = coord 
         self.queue = []
         self.lines = []
+        self.capacity = interface.S_stations_capacity
 
-        S_stations_uuid[self.id] = self
-        S_stations_coord[self.coord] = self.id
+        interface.S_stations_uuid[self.id] = self
+        interface.S_stations_coord[self.coord] = self.id
+        
 
     # Must be called by Line when adding a station to it
     def addLine(self, line):
-        if line not in L_lines_uuid:
+        if line not in interface.L_lines_uuid:
             raise ValueError("This line doesn't exist!")
         self.lines.append(line)
 
@@ -83,7 +85,7 @@ class Station:
 
     # Must be called when adding a passenger to the queue
     def addPassenger(self, passenger):
-        if passenger not in P_passengers_alive:
+        if passenger not in interface.P_passengers_alive:
              raise ValueError("This passenger doesn't exist, or is dead!")
         self.queue.append(passenger)
 

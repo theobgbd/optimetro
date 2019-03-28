@@ -1,0 +1,2 @@
+
+> Should you use the ID of an object to pass it or the object directly ? 

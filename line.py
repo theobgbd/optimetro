@@ -5,8 +5,6 @@
 ############################
 
 from uuid import uuid4
-import station
-import passenger
 import interface
 
 
@@ -14,15 +12,15 @@ import interface
 class Line():
 
     def __init__(self):
-        self.id = uuid.uuid4().hex
+        self.id = uuid4().hex
         self.types = []
         self.stations = []
         self.nbstations = 0
 
-        L_lines_uuid[self.id] = self
+        interface.L_lines_uuid[self.id] = self
 
     def addStation(self, station):
-        if station not in S_stations_uuid:
+        if station not in interface.S_stations_uuid:
             raise ValueError("Station "+str(station)+" doesn't exist!")
         self.stations.append(station)
         self.nbstations+=1
@@ -32,7 +30,7 @@ class Line():
         self.nbstations+=-1
 
     def hasShape(self, shape):
-        if not isinstance(shape, StationShape):
+        if not isinstance(shape, interface.StationShape):
             raise TypeError("Please provide a valid station shape!") 
         for i in self.types:
             if shape == i:
