@@ -35,11 +35,60 @@ class Passenger():
         self.dest = dest
         self.status = PassengerFlag.WAITING
         self.travel = PassengerTravelFlag.UNDEFINED # Todo.
+        self.train = None
+        self.station = source 
+        self.path = [source]
 
         interface.P_passengers_uuid[self.id] = self
-        interface.P_passengers_alive.append(self.id)
+        interface.P_passengers_alive.append(self)
 
     # Not a stupid set, figure itself whether the station is a connection or a direct
     def setTravelFlag(self):
+        for i in self.station.lines:
+            for j in i.types:
+                if self.dest
         return
+    
+    # To be run each time a train is entering a station
+    def checkTravel(self, station):
+        if not isinstance(station, interface.Station):
+            raise TypeError("Please provide a valid station!")
 
+        self.path.append(station)
+        if station.shape == self.dest:
+            self.kill()
+            return
+        
+        nextLine(station)
+    
+    def nextLine(self, station):
+        for i in station.lines():
+            for j in i.types():
+
+
+
+    def assignTrain(self, train):
+        if not isinstance(train, interface.Train):
+            raise TypeError("Please provide a train!")
+        self.train = train
+        self.travel = PassengerFlag.TRAVELLING
+        self.station = None
+    
+    def assignStation(self, station):
+        if not isinstance(station, interface.Station):
+            raise TypeError("Please provide a station!")
+        self.station = station
+        self.train = None
+        self.path.append(station)
+        
+
+    def kill(self):
+        self.status = PassengerFlag.DEAD
+        self.travel = PassengerTravelFlag.UNDEFINED
+        interface.P_passengers_dead.append(self)
+        interface.P_passengers_alive.remove(self)
+        self.train = None
+        self.station.arrived.append(self)
+
+
+    

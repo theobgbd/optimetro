@@ -44,6 +44,12 @@ class Line():
                 return True
         return False
 
+    # Get the next station in the line
+    def nextStation(self, station):
+       if station == self.stations[len(self.stations)-1]:
+           return self.stations[-1]
+       return self.stations[self.stations.index(station)+1]
+       
         
 
 
