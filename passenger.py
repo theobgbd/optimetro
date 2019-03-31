@@ -4,10 +4,14 @@
 # Theo Beigbeder - 2019
 #############################
 
+
+''' 
+Passenger will be a passive entity, the train is supposed to handle them and get them to the destination
+'''
+
 from uuid import uuid4
 from enum import IntEnum
 import interface
-
 
 
 class PassengerFlag(IntEnum):
@@ -44,11 +48,9 @@ class Passenger():
 
     # Not a stupid set, figure itself whether the station is a connection or a direct
     def setTravelFlag(self):
-        for i in self.station.lines:
-            for j in i.types:
-                if self.dest
         return
     
+    '''
     # To be run each time a train is entering a station
     def checkTravel(self, station):
         if not isinstance(station, interface.Station):
@@ -61,9 +63,8 @@ class Passenger():
         
         nextLine(station)
     
-    def nextLine(self, station):
-        for i in station.lines():
-            for j in i.types():
+    '''
+    
 
 
 
