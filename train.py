@@ -33,6 +33,7 @@ class Train():
             raise TypeError("Please provide a passenger!")
         self.passengers.remove(passenger)
         passenger.assignStation(self.line.stations[self.station])
+        #########passenger.updateTravel(self.line.stations[self.station])
 
     # TODO: Make a function moving the train, distance between 2 stations and speed
     # Speed in ticks ofc
