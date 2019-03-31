@@ -100,6 +100,8 @@ def countObj():
     print("Lines: "+str(L_lines_uuid.__len__()))
     print("Trains: "+str(T_trains_uuid.__len__()))
     print("Passengers: "+str(P_passengers_uuid.__len__()))
+    print("\tAlive: "+str(P_passengers_alive.__len__()))
+    print("\tDead: "+str(P_passengers_dead.__len__()))
 
 # Markers table for Matlplotlib plot
 switch_mark = {

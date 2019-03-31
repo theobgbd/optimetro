@@ -89,4 +89,4 @@ class Passenger():
         interface.P_passengers_dead.append(self)
         interface.P_passengers_alive.remove(self)
         self.train = None
-        #self.station.arrived.append(self)
+        self.station.arrived.append(self)

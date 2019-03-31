@@ -63,6 +63,7 @@ class Station():
         self.queue = []
         self.lines = []
         self.capacity = interface.S_stations_capacity
+        self.arrived = []
 
         interface.S_stations_uuid[self.id] = self
         interface.S_stations_coord[self.coord] = self.id

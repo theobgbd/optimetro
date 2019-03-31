@@ -32,7 +32,7 @@ class Train():
         if not isinstance(passenger, interface.Passenger):
             raise TypeError("Please provide a passenger!")
         self.passengers.remove(passenger)
-        passenger.kill()
+        passenger.assignStation(self.line.stations[self.station])
 
     # TODO: Make a function moving the train, distance between 2 stations and speed
     # Speed in ticks ofc
@@ -53,6 +53,6 @@ class Train():
             self.station+=-1
             return self.line.stations[self.station]
         self.station+=1
-        for i in self.passenger:
+        for i in self.passengers:
             i.station=self.line.stations[self.station]
         return self.line.stations[self.station]

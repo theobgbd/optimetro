@@ -61,6 +61,8 @@ while (master_time <= 24) :
         t.nextStation()
     master_time = master_time + 1
 
+for i in l.stations:
+    print(i.arrived)
 #print(l.hasShape(StationShape.CIRCLE))
 #print(S_station_bias.keys(), S_station_bias.values())
 #print(s.generatePassenger())
