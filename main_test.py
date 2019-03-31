@@ -1,17 +1,17 @@
 ###########################################
 # OptiMetro : a simple MiniMetro optimiser
-# Théo Beigbeder - 2019 
+# Théo Beigbeder - 2019
 # Pierre Boisselier - 2019
 ##########################################
 
 from interface import *
 import time
 import random
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #
-s = Station(StationShape.CIRCLE,10,(0,0))
+#s = Station(StationShape.CIRCLE,10,(0,0))
 l = Line()
-l.addStation(s)
+l.addStation(Station(StationShape.CIRCLE    ,10,   (0,0)))
 l.addStation(Station(StationShape.SQUARE    ,10,   (1,0)))
 l.addStation(Station(StationShape.CIRCLE    ,10,   (2,0)))
 l.addStation(Station(StationShape.TRIANGLE  ,10,   (3,0)))
@@ -21,18 +21,21 @@ l.addStation(Station(StationShape.CIRCLE    ,10,   (6,0)))
 
 ## Population stations with passengers
 for i in range(l.nbstations):
-    for j in range(2) :
+    for j in range(1) :
         a = random.randint(1,4)
         if (l.stations[i].shape != StationShape(a)):
             p = Passenger(l.stations[i],StationShape(a))
             l.stations[i].addToQueue(p)
 # Define train
-trains = [Train(l)]
-#trains[0].station = trains[0].line.stations[len(trains[0].line.stations)-1]
-
+trains = [Train(l), Train(l)]
+trains[1].nextStation()
+trains[1].nextStation()
+trains[1].nextStation()
+trains[1].nextStation()
+trains[1].reverse = True
 # Main loop
 master_time = 0
-while (master_time <= 24) :
+while (P_passengers_alive.__len__() != 0 ) :
     print("-=========-")
     print("Iteration : ", master_time)
     for i in range(0,len(trains)) :
@@ -54,20 +57,21 @@ while (master_time <= 24) :
                 t.addPassenger(passenger)
                 t.line.stations[t.station].removeFromQueue(passenger)
                 print("boarding passenger : " , passenger.dest)
-        print("list of passengers in train:")
-        for passenger in t.passengers:
-            print("\t\t",passenger.dest)
-        
         t.nextStation()
+    #time.sleep(1)
+    for i in range(l.nbstations):
+        for j in range(1) :
+            a = random.randint(1,4)
+            if (l.stations[i].shape != StationShape(a)):
+                p = Passenger(l.stations[i],StationShape(a))
+                l.stations[i].addToQueue(p)
     master_time = master_time + 1
 
-for i in l.stations:
-    print(i.arrived)
 #print(l.hasShape(StationShape.CIRCLE))
 #print(S_station_bias.keys(), S_station_bias.values())
 #print(s.generatePassenger())
 #showAllUUID()
-countObj()
+#countObj()
 
 # Plotting stations for a giver line
 #for i in range(l.nbstations):
