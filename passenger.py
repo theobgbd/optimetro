@@ -5,7 +5,7 @@
 #############################
 
 
-''' 
+'''
 Passenger will be a passive entity, the train is supposed to handle them and get them to the destination
 '''
 
@@ -29,18 +29,18 @@ class PassengerTravelFlag(IntEnum):
 class Passenger():
 
     def __init__(self, source, dest):
-        if not isinstance(dest, interface.StationShape): 
+        if not isinstance(dest, interface.StationShape):
             raise TypeError("Destination must be a valid shape!")
         if not isinstance(source, interface.Station):
             raise ValueError("Source must be an existing station!")
 
         self.id = uuid4().hex
-        self.source = source 
+        self.source = source
         self.dest = dest
         self.status = PassengerFlag.WAITING
         self.travel = PassengerTravelFlag.UNDEFINED # Todo.
         self.train = None
-        self.station = source 
+        self.station = source
         self.path = [source]
 
         interface.P_passengers_uuid[self.id] = self
@@ -49,7 +49,7 @@ class Passenger():
     # Not a stupid set, figure itself whether the station is a connection or a direct
     def setTravelFlag(self):
         return
-    
+
     '''
     # To be run each time a train is entering a station
     def checkTravel(self, station):
@@ -60,11 +60,11 @@ class Passenger():
         if station.shape == self.dest:
             self.kill()
             return
-        
+
         nextLine(station)
-    
+
     '''
-    
+
 
 
 
@@ -74,14 +74,14 @@ class Passenger():
         self.train = train
         self.travel = PassengerFlag.TRAVELLING
         self.station = None
-    
+
     def assignStation(self, station):
         if not isinstance(station, interface.Station):
             raise TypeError("Please provide a station!")
         self.station = station
         self.train = None
         self.path.append(station)
-        
+
 
     def kill(self):
         self.status = PassengerFlag.DEAD
@@ -89,7 +89,4 @@ class Passenger():
         interface.P_passengers_dead.append(self)
         interface.P_passengers_alive.remove(self)
         self.train = None
-        self.station.arrived.append(self)
-
-
-    
+        #self.station.arrived.append(self)
