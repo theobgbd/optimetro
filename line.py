@@ -45,6 +45,7 @@ class Line():
         return False
 
     # Get the next station in the line
+    # DEPRECATED, train is handling the next station
     def nextStation(self, station):
        if station == self.stations[len(self.stations)-1]:
            return self.stations[-1]
