@@ -5,9 +5,7 @@
 #############################
 
 
-'''
-Passenger will be a passive entity, the train is supposed to handle them and get them to the destination
-'''
+# Passenger will be a passive entity, the train is supposed to handle them and get them to the destination
 
 from uuid import uuid4
 from enum import IntEnum
@@ -28,6 +26,7 @@ class PassengerTravelFlag(IntEnum):
 
 class Passenger():
 
+
     def __init__(self, source, dest):
         if not isinstance(dest, interface.StationShape):
             raise TypeError("Destination must be a valid shape!")
@@ -42,6 +41,7 @@ class Passenger():
         self.train = None
         self.station = source
         self.path = [source]
+        self.line = None
 
         interface.P_passengers_uuid[self.id] = self
         interface.P_passengers_alive.append(self)
@@ -81,12 +81,15 @@ class Passenger():
         self.station = station
         self.train = None
         self.path.append(station)
+        if sation.shape == self.dest:
+            kill()
 
 
+    
     def kill(self):
         self.status = PassengerFlag.DEAD
         self.travel = PassengerTravelFlag.UNDEFINED
         interface.P_passengers_dead.append(self)
         interface.P_passengers_alive.remove(self)
         self.train = None
-        #self.station.arrived.append(self)
+        self.station.arrived.append(self)

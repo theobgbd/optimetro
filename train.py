@@ -18,9 +18,9 @@ class Train():
         self.line = line
         self.capacity = 10
         self.passengers = []
-        interface.T_trains_uuid[self.id] = self
         self.station = 0    # Holds the index of the station
         self.reverse = False
+        interface.T_trains_uuid[self.id] = self
 
     def addPassenger(self, passenger):
         if not isinstance(passenger, interface.Passenger):
@@ -32,7 +32,8 @@ class Train():
         if not isinstance(passenger, interface.Passenger):
             raise TypeError("Please provide a passenger!")
         self.passengers.remove(passenger)
-        passenger.kill()
+        passenger.assignStation(self.line.stations[self.station])
+        #########passenger.updateTravel(self.line.stations[self.station])
 
     # TODO: Make a function moving the train, distance between 2 stations and speed
     # Speed in ticks ofc
@@ -53,4 +54,6 @@ class Train():
             self.station+=-1
             return self.line.stations[self.station]
         self.station+=1
+        for i in self.passengers:
+            i.station=self.line.stations[self.station]
         return self.line.stations[self.station]
