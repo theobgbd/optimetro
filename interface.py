@@ -72,6 +72,8 @@ L_lines_uuid = {}
 # List of all trains with their UUID
 T_trains_uuid = {}
 
+# Default capacity of a train
+T_train_capacity = 10
 
 ###################################
 # Some useful functions for debug

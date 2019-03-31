@@ -5,16 +5,10 @@
 ###########################
 
 '''
-TODO:
-- Passenger generation
 
-'''
-
-'''
 La taille du génome, c'est le nombre de stations sur une ligne
 La mutation, c'est un nouveau raccordement
 Et les critères de performance, c'est la fluidité du trafic
-- A furry, 2019
 '''
 
 import random
@@ -25,6 +19,22 @@ import interface
 
 
 
+# List of stations with their ID 
+# DEPRECATED
+'''
+S_station_shapes = {
+    1:'Circle',
+    2:'Triangle',
+    3:'Square',
+    4:'Cross',
+    5:'Diamond',
+    6:'Pizza', 
+    7:'Star', 
+    8:'Pentagon', 
+    9:'Rhombus',
+    10:'Leaf'
+}
+'''
 class StationShape(IntEnum):
     CIRCLE      = 1
     TRIANGLE    = 2
@@ -36,6 +46,7 @@ class StationShape(IntEnum):
     PENTAGON    = 8
     RHOMBUS     = 9
     LEAF        = 10
+
 
 class Station():
 
@@ -52,11 +63,9 @@ class Station():
         self.queue = []
         self.lines = []
         self.capacity = interface.S_stations_capacity
-        self.arrived = [] # List of passengers who ended their travel here
 
         interface.S_stations_uuid[self.id] = self
         interface.S_stations_coord[self.coord] = self.id
-        
         
 
     # Must be called by Line when adding a station to it
@@ -75,18 +84,16 @@ class Station():
         shapes = []
         for i in StationShape:
             shapes.append(i)
-        print(shapes )
         #shapes = [i for i in StationShape]
-        #shapes = [StationShape.CIRCLE,]
-        #i = random.choices(shapes, [0.3,0.2,0.1,0.01,0.01,0.01,0.01,0.01,0.01,0.01])
-        #print(i)
-        #print(StationShape.CIRCLE)
+        i = random.choices(shapes, [0.3,0.2,0.1,0.01,0.01,0.01,0.01,0.01,0.01,0.01])
+        print(i)
+        print(StationShape.CIRCLE)
         #tmp = interface.Passenger(self,i)
         #addPassenger(tmp)
         #return  tmp
 
     # Must be called when adding a passenger to the queue
-    def addToQueue(self, passenger):
+    def addPassenger(self, passenger):
         if not isinstance(passenger, interface.Passenger):
             raise TypeError("Please provide a Passenger!")
         if passenger.status == interface.PassengerFlag.DEAD:
@@ -95,8 +102,9 @@ class Station():
         self.queue.append(passenger)
 
     # Must be called when a passenger is leaving the station
-    def removeFromQueue(self, passenger):
+    def removePassenger(self, passenger):
         # Already raise a ValueError if passenger is not in the queue
         self.queue.remove(passenger)
 
     
+  
