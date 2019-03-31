@@ -82,16 +82,10 @@ class Station():
     # Generate a passenger and add it to the queue
     def generatePassenger(self):
         # generate random number 1-10 with propability relative to bias
-        shapes = []
-        for i in StationShape:
-            shapes.append(i)
-        #shapes = [i for i in StationShape]
-        i = random.choices(shapes, [0.3,0.2,0.1,0.01,0.01,0.01,0.01,0.01,0.01,0.01])
-        print(i)
-        print(StationShape.CIRCLE)
-        #tmp = interface.Passenger(self,i)
-        #addPassenger(tmp)
-        #return  tmp
+        tmp = random.choices(range(1,11), interface.P_passengers_probabilities)
+        tmp = interface.Passenger(self,StationShape(tmp[0]))
+        self.addToQueue(tmp)
+        return tmp
 
     # Must be called when adding a passenger to the queue
     def addToQueue(self, passenger):

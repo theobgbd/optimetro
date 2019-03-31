@@ -82,7 +82,7 @@ class Passenger():
         self.train = None
         self.path.append(station)
         if station.shape == self.dest:
-            kill()
+            self.kill()
 
 
     
