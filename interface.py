@@ -5,12 +5,12 @@
 # Pierre Boisselier - 2019
 # Theo Beigbeder - 2019
 #############################
-# Comments: 
+# Comments:
 # Yes, it's 1977 again, we old and cool
 # - P
 
 
-# Imports 
+# Imports
 
 from station import *
 from line import *
@@ -25,8 +25,8 @@ from train import *
 ##########
 
 # Dictionnary associating each uuid to its station object
-S_stations_uuid = {} 
-# Dictionnary associating each station coordinates to its uuid (coord:uuid), useful for OpenCV 
+S_stations_uuid = {}
+# Dictionnary associating each station coordinates to its uuid (coord:uuid), useful for OpenCV
 S_stations_coord = {}
 # List of bias for each type of station
 S_station_bias = {
@@ -49,13 +49,13 @@ S_stations_capacity = 10
 # Passengers
 ##########
 
-# List of all passenger uuid with their object 
+# List of all passenger uuid with their object
 P_passengers_uuid = {}
 
 # List of all passengers currently alive
 P_passengers_alive = []
 
-# List of passengers that have done their travel, keeping them for analytics 
+# List of passengers that have done their travel, keeping them for analytics
 P_passengers_dead = []
 
 ##########
@@ -100,3 +100,17 @@ def countObj():
     print("Lines: "+str(L_lines_uuid.__len__()))
     print("Trains: "+str(T_trains_uuid.__len__()))
     print("Passengers: "+str(P_passengers_uuid.__len__()))
+
+# Markers table for Matlplotlib plot
+switch_mark = {
+    1: "o",
+    2: "^",
+    3: "s",
+    4: "P",
+    5: "1",
+    6: "v",
+    7: "*",
+    8: "p",
+    9: "D",
+    10: "d",
+}

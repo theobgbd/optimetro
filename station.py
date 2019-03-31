@@ -93,7 +93,7 @@ class Station():
         #return  tmp
 
     # Must be called when adding a passenger to the queue
-    def addPassenger(self, passenger):
+    def addToQueue(self, passenger):
         if not isinstance(passenger, interface.Passenger):
             raise TypeError("Please provide a Passenger!")
         if passenger.status == interface.PassengerFlag.DEAD:
@@ -102,7 +102,7 @@ class Station():
         self.queue.append(passenger)
 
     # Must be called when a passenger is leaving the station
-    def removePassenger(self, passenger):
+    def removeFromQueue(self, passenger):
         # Already raise a ValueError if passenger is not in the queue
         self.queue.remove(passenger)
 
