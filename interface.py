@@ -67,6 +67,9 @@ P_passengers_probabilities = [0.3,0.2,0.1,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
 # List of all lines with their object
 L_lines_uuid = {}
 
+#List of all lines
+L_lines = []
+
 ##########
 # Trains
 ##########

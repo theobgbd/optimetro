@@ -85,7 +85,6 @@ class Passenger():
             self.kill()
 
 
-    
     def kill(self):
         self.status = PassengerFlag.DEAD
         self.travel = PassengerTravelFlag.UNDEFINED
