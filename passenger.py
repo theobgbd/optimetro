@@ -81,11 +81,11 @@ class Passenger():
         self.station = station
         self.train = None
         self.path.append(station)
-        if sation.shape == self.dest:
-            kill()
+        if station.shape == self.dest:
+            self.kill()
 
 
-    
+
     def kill(self):
         self.status = PassengerFlag.DEAD
         self.travel = PassengerTravelFlag.UNDEFINED
