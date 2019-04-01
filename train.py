@@ -41,6 +41,8 @@ class Train():
         return
 
     def connection(self):
+        for p in self.line.stations[self.station].queue:
+            print(p)
         return
         # TODO: just do it.
 
@@ -56,4 +58,5 @@ class Train():
         self.station+=1
         for i in self.passengers:
             i.station=self.line.stations[self.station]
+            #i.assignStation(self.line.stations[self.station])
         return self.line.stations[self.station]

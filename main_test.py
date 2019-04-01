@@ -18,35 +18,41 @@ l_red.addStation(Station(StationShape.TRIANGLE  ,10,   (3,0)))
 l_red.addStation(Station(StationShape.CIRCLE    ,10,   (4,0)))
 #
 l_blue = Line()
-l_blue.addStation(Station(StationShape.CIRCLE    ,10,   (0,1)))
-l_blue.addStation(Station(StationShape.SQUARE     ,10,   (1,1)))
-l_blue.addStation(Station(StationShape.TRIANGLE     ,10,   (1,1)))
+l_blue.addStation(Station(StationShape.CIRCLE   ,10,   (0,1)))
+l_blue.addStation(Station(StationShape.SQUARE   ,10,   (1,1)))
+l_blue.addStation(Station(StationShape.TRIANGLE ,10,   (1,1)))
 l_blue.addStation(l_red.stations[4])
 #
 l_green = Line()
-l_green.addStation(Station(StationShape.CROSS    ,10,   (0,2)))
+l_green.addStation(Station(StationShape.CROSS   ,10,   (0,2)))
 l_green.addStation(l_blue.stations[2])
 #
-for l in interface.L_lines:
-    print(l.id)
+#for l in interface.L_lines:
+#    print(l.id)
 
-print(l_red.isConnectedLine(l_green))
-print(l_red.isConnected(StationShape.CROSS,interface.L_lines))
+#print(l_red.isConnectedLine(l_green))
+#print(l_red.isConnected(StationShape.CROSS,interface.L_lines))
 
 
 # Plotting stations for a giver line
 ## Populating stations with passengers
+'''
 for l in interface.L_lines :
     for i in range(l.nbstations):
         for j in range(1) :
             a = random.randint(1,4)
             if (l.stations[i].shape != StationShape(a)):
                 p = Passenger(l.stations[i],StationShape(a))
+                print(p.travel)
                 l.stations[i].addToQueue(p)
-
+'''
+p = Passenger(l_red.stations[0],StationShape.CROSS)
+print(p.travel)
+for i in p.follow:
+    print(i.coord)
 ### Defining trains ###
-trains = [Train(l_blue), Train(l_blue), Train(l_red), Train(l_red)]
 
+trains = [Train(l_blue), Train(l_blue), Train(l_red), Train(l_red)]
 #
 trains[1].reverse = True
 trains[1].nextStation()
@@ -58,7 +64,9 @@ trains[2].nextStation()
 trains[2].nextStation()
 trains[3].nextStation()
 
+       
 exit()
+'''
 ### Main loop ###
 master_time = 0
 while (P_passengers_alive.__len__() != 0 ) :
@@ -93,7 +101,7 @@ while (P_passengers_alive.__len__() != 0 ) :
                 #             t.line.stations[t.station].removeFromQueue(passenger)
                 #             print("\t> boarding passenger : " , passenger.dest, "for transit ride")
 
-        t.nextStation()
+        #t.nextStation()
     #time.sleep(1)
     for i in range(l.nbstations):
         for j in range(1) :
@@ -108,3 +116,4 @@ while (P_passengers_alive.__len__() != 0 ) :
 #print(s.generatePassenger())
 #showAllUUID()
 #countObj()
+'''
