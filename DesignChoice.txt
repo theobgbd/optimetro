@@ -1,2 +1,3 @@
 
-> Should you use the ID of an object to pass it or the object directly ? 
+> Should you use the ID of an object to pass it or the object directly? 
+> Delete passengers when arrived? (Reduce ram usage I guess)

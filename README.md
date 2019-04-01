@@ -4,3 +4,4 @@ Mini Metro analyser and solver tool
 Sometimes, I wonder why we used Python...
 ### TO DO
  Sure we should have used fortran 66, written on punchcards, compiled with 32ko of oil-bath memory and paper printer output.  
+ In all fairness, F66 > Python.
