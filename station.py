@@ -5,7 +5,6 @@
 ###########################
 
 '''
-
 La taille du génome, c'est le nombre de stations sur une ligne
 La mutation, c'est un nouveau raccordement
 Et les critères de performance, c'est la fluidité du trafic
@@ -19,7 +18,7 @@ import interface
 
 
 
-# List of stations with their ID 
+# List of stations with their ID
 # DEPRECATED
 '''
 S_station_shapes = {
@@ -28,9 +27,9 @@ S_station_shapes = {
     3:'Square',
     4:'Cross',
     5:'Diamond',
-    6:'Pizza', 
-    7:'Star', 
-    8:'Pentagon', 
+    6:'Pizza',
+    7:'Star',
+    8:'Pentagon',
     9:'Rhombus',
     10:'Leaf'
 }
@@ -56,10 +55,10 @@ class Station():
         if not isinstance(coord, tuple):
             raise TypeError("Coordinates must be a tuple!")
 
-        self.shape = shape 
-        self.id = uuid.uuid4().hex 
+        self.shape = shape
+        self.id = uuid.uuid4().hex
         self.bias = bias
-        self.coord = coord 
+        self.coord = coord
         self.queue = []
         self.lines = []
         self.capacity = interface.S_stations_capacity
@@ -67,7 +66,7 @@ class Station():
 
         interface.S_stations_uuid[self.id] = self
         interface.S_stations_coord[self.coord] = self.id
-        
+        interface.S_stations.append(self)
 
     # Must be called by Line when adding a station to it
     def addLine(self, line):
@@ -78,21 +77,23 @@ class Station():
     def removeLine(self, line):
         # Already raise a ValueError if line not in lines
         self.lines.remove(line)
-    
+
     # Generate a passenger and add it to the queue
-    def generatePassenger(self):
+    def generatePassenger(self,limit):
         # generate random number 1-10 with propability relative to bias
-        tmp = random.choices(range(1,11), interface.P_passengers_probabilities)
-        tmp = interface.Passenger(self,StationShape(tmp[0]))
-        self.addToQueue(tmp)
-        return tmp
+        a = random.choices(range(1,limit), interface.P_passengers_probabilities[1:limit])
+        if (StationShape(a[0]) != self.shape) :
+            tmp = interface.Passenger(self,StationShape(a[0]))
+            self.addToQueue(tmp)
+            return StationShape(a[0])
+        return 0
 
     # Must be called when adding a passenger to the queue
     def addToQueue(self, passenger):
         if not isinstance(passenger, interface.Passenger):
             raise TypeError("Please provide a Passenger!")
         if passenger.status == interface.PassengerFlag.DEAD:
-            raise ValueError("This passenger is dead!") 
+            raise ValueError("This passenger is dead!")
         passenger.status = interface.PassengerFlag.WAITING
         self.queue.append(passenger)
 
@@ -100,6 +101,3 @@ class Station():
     def removeFromQueue(self, passenger):
         # Already raise a ValueError if passenger is not in the queue
         self.queue.remove(passenger)
-
-    
-  

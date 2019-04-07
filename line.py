@@ -17,7 +17,7 @@ class Line():
         self.stations = []
         self.nbstations = 0
         self.recursion_limit = 0
-
+        self.color = 'none'
         interface.L_lines_uuid[self.id] = self
         interface.L_lines.append(self)
 
@@ -65,31 +65,28 @@ class Line():
             self.recursion_limit = self.recursion_limit + 1
             for target_line in lines_list :
                 if (self.isConnectedLine(target_line) and target_line != self):
-                   # print(target_line.id)
                     for station in target_line.stations:
-                   #     print("\t", station.shape, target_shape)
                         if (station.shape == target_shape):
-                            return (target_line.id, station.id)
+                            return (target_line.id, station)
                     return target_line.isConnected(target_shape,lines_list)
         return False
 
     '''
-    def isConnected(self,target_shape,lines_list, path):
+    def isConnected(self,target_shape,lines_list):
         if self in lines_list:
             lines_list.remove(self)
-        if (self.recursion_limit < len(interface.L_lines)):
-            self.recursion_limit = self.recursion_limit + 1
-            for target_line in lines_list :
-                if (self.isConnectedLine(target_line) and target_line != self):
-                   # print(target_line.id)
-                    for station in target_line.stations:
-                   #     print("\t", station.shape, target_shape)
-                        if (station.shape == target_shape):
-                            path.append(station)
-                            return path
-                    path.append(station)
-                    return target_line.isConnected(target_shape,lines_list, path)
-        return False 
-
-
-
+        #if (self.recursion_limit < len(interface.L_lines)):
+        #    self.recursion_limit = self.recursion_limit + 1
+        for target_line in lines_list :
+            if (self.isConnectedLine(target_line) and target_line != self):
+               # print(target_line.id)
+                for station in target_line.stations:
+               #     print("\t", station.shape, target_shape)
+                    if (station.shape == target_shape):
+                        #path.append(station)
+                        print("\t\t#connection found")
+                        return target_line
+                #path.append(station)
+                return target_line.isConnected(target_shape,lines_list)
+        return False
+    #'''

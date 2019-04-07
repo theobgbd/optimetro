@@ -9,25 +9,22 @@
 # Yes, it's 1977 again, we old and cool
 # - P
 
-
 # Imports
-
-from station import *
-from line import *
-from passenger import *
-from train import *
-
-
-
+from station    import *
+from line       import *
+from passenger  import *
+from train      import *
 
 ##########
-# Station
+# Stations
 ##########
 
 # Dictionnary associating each uuid to its station object
 S_stations_uuid = {}
 # Dictionnary associating each station coordinates to its uuid (coord:uuid), useful for OpenCV
 S_stations_coord = {}
+#List of all Stations
+S_stations = []
 # List of bias for each type of station
 S_station_bias = {
     1:1,
@@ -42,8 +39,8 @@ S_station_bias = {
     10:100
 }
 
-# Max capacity of passengers, including queue ?
-S_stations_capacity = 10
+# Max capacity of passengers in the queue (spawn + connecting)
+S_stations_capacity = 20
 
 ##########
 # Passengers
@@ -76,6 +73,9 @@ L_lines = []
 
 # List of all trains with their UUID
 T_trains_uuid = {}
+
+#List of all trains
+T_trains = []
 
 # Default capacity of a train
 T_train_capacity = 10

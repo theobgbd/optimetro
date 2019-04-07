@@ -13,14 +13,14 @@ class Train():
     def __init__(self, line):
         if not isinstance(line, interface.Line):
             raise TypeError("Please provide a line.")
-
         self.id = uuid4().hex
         self.line = line
-        self.capacity = 10
+        self.capacity = interface.T_train_capacity
         self.passengers = []
         self.station = 0    # Holds the index of the station
         self.reverse = False
         interface.T_trains_uuid[self.id] = self
+        interface.T_trains.append(self)
 
     def addPassenger(self, passenger):
         if not isinstance(passenger, interface.Passenger):

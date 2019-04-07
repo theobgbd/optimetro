@@ -40,14 +40,16 @@ class Passenger():
         self.travel = PassengerTravelFlag.UNDEFINED # Todo.
         self.train = None
         self.station = source
+        self.target_station = None
         self.path = [source]
         self.follow = [source]
         self.line = None
+        self.blacklist = []
 
         interface.P_passengers_uuid[self.id] = self
         interface.P_passengers_alive.append(self)
 
-        self.checkTravel()
+        #self.checkTravel()
 
     # Not a stupid set, figure itself whether the station is a connection or a direct
     def setTravelFlag(self):
@@ -55,7 +57,6 @@ class Passenger():
 
 
     def checkTravel(self):
-        
         # Check whether it will be a direct travel
         for i in self.source.lines:
             if i.hasShape(self.dest):
@@ -67,8 +68,8 @@ class Passenger():
             print("Follow stations: ",self.follow)
         else:
             print("No path to station!")
-        
-    
+
+
     def findPath(self):
         for i in self.source.lines:
             tmp = i.isConnected(self.dest,interface.L_lines,self.follow)
@@ -76,14 +77,14 @@ class Passenger():
                 self.follow = tmp
                 return True
         return False
-    
+
     def next(self):
         if len(self.follow)>1:
             return self.follow[1]
         return self.follow[0]
 
 
-  
+
 
     def assignTrain(self, train):
         if not isinstance(train, interface.Train):
@@ -100,7 +101,7 @@ class Passenger():
         self.path.append(station)
         if station.shape == self.dest:
             self.kill()
-        self.checkTravel()
+        #self.checkTravel()
 
 
     def kill(self):
