@@ -72,7 +72,7 @@ class Line():
         return False
 
     '''
-    def isConnected(self,target_shape,lines_list):
+    def isConnected(self,target_shape,lines_list ):
         if self in lines_list:
             lines_list.remove(self)
         #if (self.recursion_limit < len(interface.L_lines)):

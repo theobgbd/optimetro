@@ -1,3 +1,9 @@
 
 > Should you use the ID of an object to pass it or the object directly? 
 > Delete passengers when arrived? (Reduce ram usage I guess)
+
+
+Please ignore.
+    La taille du génome, c'est le nombre de stations sur une ligne
+    La mutation, c'est un nouveau raccordement
+    Et les critères de performance, c'est la fluidité du trafic

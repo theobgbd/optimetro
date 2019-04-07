@@ -9,7 +9,7 @@ from interface import T_trains   as trains
 import metrics as metrics
 import time
 import random
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 ### Defining Lines
 l_red = Line()
@@ -19,7 +19,6 @@ l_red.addStation(Station(StationShape.SQUARE    ,10,   (1,0)))
 l_red.addStation(Station(StationShape.CIRCLE    ,10,   (2,0)))
 l_red.addStation(Station(StationShape.TRIANGLE  ,10,   (3,0)))
 l_red.addStation(Station(StationShape.CIRCLE    ,10,   (4,0)))
-
 #
 l_blue = Line()
 l_blue.color = 'blue'
@@ -47,8 +46,8 @@ print(line.color)
 print("* Populating stations")
 for l in interface.L_lines :
     for s in l.stations :
-        for j in range(1,6) :
-            p = s.generatePassenger(limit = 5)
+        for j in range(1,5) :
+            p = s.generatePassenger(limit = 3)
 
 #'''
 #print("* Testing connectivity")
@@ -90,9 +89,11 @@ while (P_passengers_alive.__len__() != 0 ) :
                     Lines = t.line.stations[t.station].lines
                     a = t.line.isConnected(passenger.dest, Lines)
                     if (a != False and a == l) :
+                        print(a.color, l.color)
                         t.removePassenger(passenger)
+                        t.line.stations[t.station].addToQueue(passenger)
+                        passenger.travel = PassengerTravelFlag.UNDEFINED
                         print("\t> unboarding connecting passenger :", passenger.dest)
-
             else :
                 print("\t> keeping passenger :", passenger.dest)
 
@@ -134,7 +135,7 @@ while (P_passengers_alive.__len__() != 0 ) :
     countObj()
 
     master_time = master_time + 1
-print(' ----- Done ! ----')
+
 #print(l.hasShape(StationShape.CIRCLE))
 #print(S_station_bias.keys(), S_station_bias.values())
 #print(s.generatePassenger())

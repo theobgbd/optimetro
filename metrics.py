@@ -7,6 +7,8 @@
 # “A single death is a tragedy; a million deaths is a statistic.
 #  A billion is a succesful AI.”
 # ― T ft. Joseph Stalin
+# ^ quoting Stalin, how to not get approved for a US Visa
+
 
 from uuid import uuid4
 import interface
