@@ -101,7 +101,9 @@ class Passenger():
         self.path.append(station)
         if station.shape == self.dest:
             self.kill()
-        #self.checkTravel()
+        else :
+            station.addToQueue(self)
+        self.checkTravel()
 
 
     def kill(self):
