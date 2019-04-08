@@ -8,7 +8,7 @@
 # The train should be the one handling passengers.
 # It must decide if it boards a specific passenger or not.
 # Thus, it is responsible for finding out whether the passenger destination
-# is on the line or somewhere else. If the latter case, it must find where 
+# is on the line or somewhere else. If the latter case, it must find where
 # to drop the passenger allowing another train from another line to take it.
 
 from uuid import uuid4
@@ -18,7 +18,7 @@ class Train():
 
     # Constructor
     def __init__(self, line):
-        # A train should always be assigned to a line 
+        # A train should always be assigned to a line
         if not isinstance(line, interface.Line):
             raise TypeError("Please provide a line.")
 
@@ -26,18 +26,18 @@ class Train():
         self.id = uuid4().hex
         # Assign a line to itself
         self.line = line
-        # Default capacity of the train 
+        # Default capacity of the train
         self.capacity = interface.T_train_capacity
         # List of all passengers the train currently has
         self.passengers = []
         # Index of the current station
-        self.station = 0    
-        # Is the train going reverse ? 
+        self.station = 0
+        # Is the train going reverse ?
         self.reverse = False
         # Assign itself to the list of trains for the whole program
         interface.T_trains_uuid[self.id] = self
         interface.T_trains.append(self)
-    
+
     # Move the train at a speed, must be called for every train at each tick
     # TODO: Should call nextStation() when it traveled the distance
     def move(self, speed):
@@ -48,38 +48,44 @@ class Train():
     def unboardPassengers(self, station):
         if not isinstance(station, interface.Station):
             raise ValueError("Please provide a station!")
-        
+
         for p in self.passengers:
             # Check first if the passenger is arrived
             if (p.dest==station.shape):
+                print("\t\t> Unboarding passenger", p.dest,"at arrival ")
                 self.passengers.remove(p)
                 p.kill(station)
 
             # Does the station has enough capacity?
             # We allow + 1 to the capacity to allow "swaps" to happen
             elif len(station.queue)>station.capacity:
-                return    
+                return
 
             # If the station has more than one line we can check connections
             # And if the passenger is in a connection travel
             elif (len(station.lines)>1) and (p.travel==interface.PassengerTravelFlag.CONNECTION):
                 # We want to know if there is a path to the destination
-                connection = self.line.isConnected(p.dest, station.lines)
+                #lines = station.lines
+                #connection = self.line.isConnected(p.dest, lines, [])
                 # If there is indeed a path we unboard the passenger
                 # TODO: There can be a problem if there are more than 3 lines to connect!!!
                 # TODO: Find a way to fix this
-                if connection != False:                
+                if len(self.line.stations[self.station].lines) >= 2 :
+                    print("\t\t> Unboarding passenger", p.dest, "for connection")
                     self.passengers.remove(p)
-                    p.assignStation(station)
-                    
-                
+                    station.addToQueue(p)
+                    p.travel = interface.PassengerTravelFlag.DIRECT
+                    #p.assignStation(station)
+
+
     # Decide which passengers in the station to board
     # Called after unboardPassengers when arriving at a station
     def boardPassengers(self, station):
         if not isinstance(station, interface.Station):
             raise ValueError("Please provide a station!")
-
+        print("\t\tStation queue :")
         for p in station.queue:
+            print('\t\t\t',p.dest, p.travel)
             # We first check if we have enough capacity to board a passenger
             if len(self.passengers)>=self.capacity:
                 return
@@ -87,12 +93,17 @@ class Train():
             elif self.line.hasShape(p.dest):
                 p.assignTrain(self)
                 self.passengers.append(p)
+                print("\t\t> Boarding passenger", p.dest, "for direct ride")
             # Otherwise we check if it's a connection travel
-            elif p.travel==interface.PassengerTravelFlag.CONNECTION:   
-                connection = self.line.isConnected(p.dest,station.lines)
+            elif (p.travel == interface.PassengerTravelFlag.CONNECTION ) :
+                lines = interface.L_lines
+                connection = self.line.isConnected(p.dest,lines,[])
+                print(connection)
                 if connection != False:
                     p.assignTrain(self)
                     self.passengers.append(p)
+                    print("\t\t> Boarding passenger", p.dest, "for connecting ride")
+
 
 
     # Enter a new station and manage passengers
@@ -110,10 +121,11 @@ class Train():
 
         new_station = self.line.stations[self.station]
 
+        print("\t* Train on line", self.line.color, "arrives at station", self.station, self.line.stations[self.station].shape)
+
         # Assign the new station to all passengers
         for p in self.passengers:
             p.station=new_station
-
         # Unboard all passengers
         self.unboardPassengers(new_station)
         # Board passengers at the current station
@@ -129,4 +141,3 @@ class Train():
     # Remove a passenger from the train
     def removePassenger(self, passenger):
         self.nextStation()
-        

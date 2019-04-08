@@ -56,7 +56,7 @@ P_passengers_alive = []
 P_passengers_dead = []
 
 # Propabilities for each destination for a passenger
-P_passengers_probabilities = [0.3,0.2,0.1,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
+P_passengers_probabilities = [0.3,0.2,0.1,0.3,0.1,0.01,0.01,0.01,0.01,0.01]
 ##########
 # Lines
 ##########
@@ -67,6 +67,7 @@ L_lines_uuid = {}
 #List of all lines
 L_lines = []
 
+L_depth = 0
 ##########
 # Trains
 ##########

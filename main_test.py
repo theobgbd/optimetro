@@ -29,26 +29,34 @@ l_blue.addStation(l_red.stations[1])
 #
 l_green = Line()
 l_green.color = 'green'
-l_green.addStation(Station(StationShape.CROSS   ,10,   (0,2)))
+l_green.addStation(Station(StationShape.TRIANGLE   ,10,   (0,2)))
 l_green.addStation(Station(StationShape.CIRCLE   ,10,   (1,1)))
-l_green.addStation(l_blue.stations[0])
+l_green.addStation(l_blue.stations[1])
 #
+l_orange = Line()
+l_orange.color = 'orange'
+l_orange.addStation(Station(StationShape.CROSS   ,10,   (0,2)))
+l_orange.addStation(Station(StationShape.CIRCLE   ,10,   (0,1)))
+l_orange.addStation(l_green.stations[1])
+
 #for l in interface.L_lines:
 #    print(l.id)
-
+print(l_orange.isConnectedLine(l_orange))
 Lines = interface.L_lines
-line = l_green.isConnected(StationShape.TRIANGLE,Lines)
-print("Connection via ", line)
-print(line.color)
+connections = l_orange.isConnected(StationShape.TRIANGLE,Lines,[])
+if connections != False :
+    for l in connections:
+        print(l.color)
+else :
+    print("no connection")
 # Plotting stations for a giver line
 ## Populating stations with passengers
 #'''
 print("* Populating stations")
 for l in interface.L_lines :
     for s in l.stations :
-        for j in range(1,5) :
-            p = s.generatePassenger(limit = 3)
-
+        for j in range(1,2) :
+            p = s.generatePassenger(limit = 5)
 #'''
 #print("* Testing connectivity")
 #p = Passenger(l_red.stations[0],StationShape.CROSS)
@@ -57,17 +65,10 @@ for l in interface.L_lines :
 #    print(i.coord)
 
 ### Defining trains ###
-trains = [Train(l_blue), Train(l_green), Train(l_red), Train(l_red)]
+trains = [Train(l_red), Train(l_blue), Train(l_green), Train(l_orange)]
 #
 trains[1].reverse = True
-trains[1].nextStation()
-trains[1].nextStation()
-trains[1].nextStation()
-#
 trains[2].reverse = True
-trains[2].nextStation()
-trains[2].nextStation()
-trains[3].nextStation()
 
 #exit()
 #'''
@@ -76,48 +77,11 @@ master_time = 0
 while (P_passengers_alive.__len__() != 0 ) :
     print("-=========-")
     print("Iteration : ", master_time)
+
+    # Train management
     for t in trains :
-        print("* Train #",t.id, "arrives in station",t.station, t.line.stations[t.station].shape, "of line", t.line.color)
-        # Unboarding loop
-        print("\tTrain queue :", len(t.passengers),"/", t.capacity )
-        for passenger in t.passengers :
-            if (passenger.dest == t.line.stations[t.station].shape):
-                t.removePassenger(passenger)
-                print("\t> unboarding passenger :", passenger.dest)
-            elif (passenger.travel == PassengerTravelFlag.CONNECTION) :
-                for l in t.line.stations[t.station].lines :
-                    Lines = t.line.stations[t.station].lines
-                    a = t.line.isConnected(passenger.dest, Lines)
-                    if (a != False and a == l) :
-                        print(a.color, l.color)
-                        t.removePassenger(passenger)
-                        t.line.stations[t.station].addToQueue(passenger)
-                        passenger.travel = PassengerTravelFlag.UNDEFINED
-                        print("\t> unboarding connecting passenger :", passenger.dest)
-            else :
-                print("\t> keeping passenger :", passenger.dest)
+        t.nextStation()  #Moving train to next station
 
-        # Boarding loop
-        print("\tStation queue :")      # Showing station queue
-        for passenger in t.line.stations[t.station].queue :
-            Lines = interface.L_lines
-            path = []
-            print("\t\t",passenger.dest )
-            if (t.line.hasShape(passenger.dest) and len(t.passengers) < t.capacity):
-                t.addPassenger(passenger)
-                passenger.travel = PassengerTravelFlag.DIRECT
-                t.line.stations[t.station].removeFromQueue(passenger)
-                print("\t> boarding passenger : " , passenger.dest, "for direct ride")
-
-            else :
-                for l in t.line.stations[t.station].lines :
-                    if (l.hasShape(passenger.dest) == False) :
-                        if (t.line.isConnected(passenger.dest, Lines) != None and len(t.passengers) < t.capacity) :
-                            t.addPassenger(passenger)
-                            passenger.travel = PassengerTravelFlag.CONNECTION
-                            t.line.stations[t.station].removeFromQueue(passenger)
-                            print("\t> boarding passenger : " , passenger.dest, "for connecting ride")
-        t.nextStation()
     # Populating stations
     #for s in interface.S_stations :
     #    for j in range(1,2) :
@@ -130,7 +94,7 @@ while (P_passengers_alive.__len__() != 0 ) :
     metrics.f_gload.write("\n")
 
     for p in interface.P_passengers_alive :
-        print(p.dest, p.station)
+        print(p.dest, p.station, p.travel)
 
     countObj()
 

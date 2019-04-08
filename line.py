@@ -54,7 +54,7 @@ class Line():
         for station in self.stations :
             for target_station in target_line.stations:
                 if (station == target_station):
-                    return station
+                    return True
         return False
 
     '''
@@ -72,21 +72,34 @@ class Line():
         return False
 
     '''
-    def isConnected(self,target_shape,lines_list ):
+    def isConnected(self,target_shape,lines_list, path):
+        print(self.color)
+        list = lines_list
         if self in lines_list:
-            lines_list.remove(self)
-        #if (self.recursion_limit < len(interface.L_lines)):
-        #    self.recursion_limit = self.recursion_limit + 1
-        for target_line in lines_list :
-            if (self.isConnectedLine(target_line) and target_line != self):
-               # print(target_line.id)
+           list.remove(self)
+        for target_line in  list:
+            print('\t',target_line.color)
+            if (self.isConnectedLine(target_line)):
                 for station in target_line.stations:
-               #     print("\t", station.shape, target_shape)
                     if (station.shape == target_shape):
-                        #path.append(station)
                         print("\t\t#connection found")
-                        return target_line
-                #path.append(station)
-                return target_line.isConnected(target_shape,lines_list)
-        return False
-    #'''
+                        return path
+            else :
+               path.append(target_line)
+               return target_line.isConnected(target_shape,lines_list,path)
+        return path
+
+'''
+   def isConnected(self,target_shape,lines_list ):
+      if self in lines_list:
+        lines_list.remove(self)
+        for target_line in lines_list :
+        if (self.isConnectedLine(target_line) and target_line != self):
+           # print(target_line.id)
+            for station in target_line.stations:
+                if (station.shape == target_shape):
+                    print("\t\t#connection found")
+                    return self
+            return target_line.isConnected(target_shape,lines_list)
+    return False
+    '''
