@@ -11,14 +11,18 @@ import time
 import random
 #import matplotlib.pyplot as plt
 
+# Define network graph
+s_square   = Station(StationShape.SQUARE    ,10,   (0,0))
+s_circle   = Station(StationShape.CIRCLE    ,10,   (0,0))
+s_triangle = Station(StationShape.TRIANGLE  ,10,   (0,0))
+
 ### Defining Lines
-l_red = Line()
 l_red.color = 'red'
-l_red.addStation(Station(StationShape.CIRCLE    ,10,   (0,0)))
-l_red.addStation(Station(StationShape.SQUARE    ,10,   (1,0)))
-l_red.addStation(Station(StationShape.CIRCLE    ,10,   (2,0)))
-l_red.addStation(Station(StationShape.TRIANGLE  ,10,   (3,0)))
-l_red.addStation(Station(StationShape.CIRCLE    ,10,   (4,0)))
+l_red.addStation(s_square,Station(StationShape.SQUARE    ,10,   (1,0)))
+l_red.addStation(l_red.stations[l_red.nbstations] Station(StationShape.CIRCLE    ,10,   (2,0)))
+
+countObj()
+
 #
 l_blue = Line()
 l_blue.color = 'blue'

@@ -10,7 +10,7 @@ import uuid
 from enum import IntEnum
 import interface
 
-# List of all possible shapes 
+# List of all possible shapes
 class StationShape(IntEnum):
     UNDEFINED   = 0
     CIRCLE      = 1
@@ -53,11 +53,13 @@ class Station():
         # List of all passengers that ended their travel at this station
         self.arrived = []
 
+        self.vertex = interface.Network.add_vertex()
+
         interface.S_stations_uuid[self.id] = self
         interface.S_stations_coord[self.coord] = self.id
         interface.S_stations.append(self)
 
-    # Adds a line to the list of lines after checking if it's a valid line 
+    # Adds a line to the list of lines after checking if it's a valid line
     # Must be called by Line when adding a station to it
     def addLine(self, line):
         if not isinstance(line, interface.Line):
@@ -98,4 +100,3 @@ class Station():
     def removeFromQueue(self, passenger):
         # Already raise a ValueError if passenger is not in the queue
         self.queue.remove(passenger)
-

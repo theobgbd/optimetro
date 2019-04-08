@@ -22,13 +22,14 @@ class Line():
         interface.L_lines.append(self)
 
 
-    def addStation(self, station):
+    def addStation(self, new_station, cor_station):
         if not isinstance(station, interface.Station):
             raise TypeError("Please provide a station!")
         self.stations.append(station)
         self.types.append(station.shape)
         self.nbstations+=1
         station.lines.append(self)
+        interface.Network.add_edge(new_station.vertex, cor_station.vertex)
 
     def delStation(self, station):
         self.stations.remove(station)
